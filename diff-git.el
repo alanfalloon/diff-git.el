@@ -58,7 +58,7 @@ Optional argument BUF is the buffer to store the diff contents
 in, otherwise *vc-diff-staged*."
   (interactive)
   (prog1
-      (diff-git-do-diff-command (or buf "*vc-diff-staged*")
+      (diff-git-do-diff-command (or buf "*vc-diff-staged*") (not buf)
                                 "--no-color" "--exit-code" "--patience" "--cached" "--")
     (setq diff-git-update-fn 'diff-git-diff-staged)))
 
@@ -69,13 +69,14 @@ Optional argument BUF is the buffer to store the diff contents
 in, otherwise *vc-diff-unstaged*."
   (interactive)
   (prog1
-      (diff-git-do-diff-command (or buf "*vc-diff-unstaged*")
+      (diff-git-do-diff-command (or buf "*vc-diff-unstaged*") (not buf)
                                 "--no-color" "--exit-code" "--patience" "--")
     (setq diff-git-update-fn 'diff-git-diff-unstaged)))
 
-(defun diff-git-do-diff-command (buffer &rest flags)
+(defun diff-git-do-diff-command (buffer pop &rest flags)
   "Run a git diff command in a `diff-mode' buffer.
 BUFFER is the buffer that will hold the diff output.
+POP determines if we should pop to the beffer after the command.
 Optional argument FLAGS is the options to pass to git-diff."
   (let ((files (cadr (vc-deduce-fileset))))
     (vc-setup-buffer buffer)
@@ -93,7 +94,7 @@ Optional argument FLAGS is the options to pass to git-diff."
           (when fbuf
             (with-current-buffer fbuf
               (add-hook 'after-save-hook 'diff-git-update-buffers nil t)))))
-      (pop-to-buffer (current-buffer))
+      (when pop (pop-to-buffer (current-buffer)))
       t)))
 
 (defun diff-git-update-buffers ()
