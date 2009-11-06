@@ -100,7 +100,12 @@ Optional argument FLAGS is the options to pass to git-diff."
 (defun diff-git-update-buffers ()
   "Update all the buffers in `diff-git-update-buffers-list'."
   (dolist (buf diff-git-update-buffers-list)
-    (with-current-buffer buf (apply diff-git-update-fn (list buf)))))
+    (with-current-buffer buf (diff-git-update-current-buffer))))
+
+(defun diff-git-update-current-buffer ()
+  "Update the current buffer using local `diff-git-update-fn'."
+  (interactive)
+  (apply diff-git-update-fn (list (current-buffer))))
 
 (defun diff-git-prune-update-buffers-list ()
   "Remove the current buffer from `diff-git-update-buffers-list'."
