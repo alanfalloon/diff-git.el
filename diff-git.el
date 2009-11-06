@@ -12,12 +12,16 @@
 
 (eval-and-compile
   (defvar diff-mode-map)
+  (defvar diff-mode-shared-map)
+  (defvar vc-prefix-map)
   (autoload 'diff-mode-map                   "diff-mode")
+  (autoload 'diff-mode-shared-map            "diff-mode")
   (autoload 'diff-beginning-of-hunk          "diff-mode")
   (autoload 'diff-end-of-hunk                "diff-mode")
   (autoload 'diff-beginning-of-file-and-junk "diff-mode")
   (autoload 'diff-hunk-next                  "diff-mode")
   (autoload 'vc-deduce-fileset               "vc")
+  (autoload 'vc-prefix-map                   "vc-hooks")
   (autoload 'vc-setup-buffer                 "vc-dispatcher")
   (autoload 'magit-run-git-with-input        "magit"))
 
@@ -115,6 +119,9 @@ Optional argument FLAGS is the options to pass to git-diff."
 ;;;###autoload
 (defun diff-git-default-bindings ()
   "Add bindings to the `diff-mode' keymap."
+  (define-key vc-prefix-map "["        'diff-git-diff-unstaged)
+  (define-key vc-prefix-map "]"        'diff-git-diff-staged)
+  (define-key diff-mode-shared-map "g" 'diff-git-update-current-buffer)
   (define-key diff-mode-map "\C-c\C-v" 'diff-git-hunk-stage))
 
 ;;;###autoload (eval-after-load 'diff-mode '(diff-git-default-bindings))
