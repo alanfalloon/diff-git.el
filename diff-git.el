@@ -88,6 +88,11 @@ Optional argument FLAGS is the options to pass to git-diff."
       (add-hook 'diff-git-status-changed-hook 'diff-git-update-buffers)
       (add-hook 'kill-buffer-hook 'diff-git-prune-update-buffers-list)
       (add-to-list 'diff-git-update-buffers-list (current-buffer))
+      (dolist (file files)
+        (let ((fbuf (get-file-buffer file)))
+          (when fbuf
+            (with-current-buffer fbuf
+              (add-hook 'after-save-hook 'diff-git-update-buffers nil t)))))
       (pop-to-buffer (current-buffer))
       t)))
 
