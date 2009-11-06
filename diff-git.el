@@ -19,6 +19,10 @@
   (autoload 'diff-hunk-next                  "diff-mode")
   (autoload 'magit-run-git-with-input        "magit"))
 
+(defvar diff-git-status-changed-hook nil
+  "List of functions to be called after the git status is changed.
+It is only triggered by diff-git commands that affect the status in some way.")
+
 ;;;###autoload
 (defun diff-git-hunk-stage ()
   "Stage the current hunk in the index using 'git apply --cached'."
@@ -35,7 +39,8 @@
     (with-current-buffer tmp
       (erase-buffer)
       (insert diff))
-    (magit-run-git-with-input tmp "apply" "--cached" "-")))
+    (prog1 (magit-run-git-with-input tmp "apply" "--cached" "-")
+      (run-hooks 'diff-git-status-changed-hook))))
 
 ;;;###autoload
 (defun diff-git-default-bindings ()
