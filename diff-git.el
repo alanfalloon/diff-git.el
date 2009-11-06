@@ -39,7 +39,7 @@ It is only triggered by diff-git commands that affect the status in some way.")
     (with-current-buffer tmp
       (erase-buffer)
       (insert diff))
-    (prog1 (magit-run-git-with-input tmp "apply" "--cached" "-")
+    (prog1 (magit-run-git-with-input tmp "apply" "--unidiff-zero" "--cached" "-")
       (run-hooks 'diff-git-status-changed-hook))))
 
 ;;;###autoload
