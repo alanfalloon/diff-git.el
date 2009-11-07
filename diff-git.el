@@ -29,9 +29,9 @@
   "List of functions to be called after the git status is changed.
 It is only triggered by diff-git commands that affect the status in some way.")
 
-(defvar diff-git-update-fn nil
+(defvar diff-git-update-function nil
   "The function to call to update the current buffer.")
-(make-variable-buffer-local 'diff-git-update-fn)
+(make-variable-buffer-local 'diff-git-update-function)
 
 (defvar diff-git-update-buffers-list nil
   "Buffers that need updating when the Git repository changes.")
@@ -64,7 +64,7 @@ in, otherwise *vc-diff-staged*."
   (prog1
       (diff-git-do-diff-command (or buf "*vc-diff-staged*") (not buf)
                                 "--no-color" "--exit-code" "--patience" "--cached" "--")
-    (setq diff-git-update-fn 'diff-git-diff-staged)))
+    (setq diff-git-update-function 'diff-git-diff-staged)))
 
 ;;;###autoload
 (defun diff-git-diff-unstaged (&optional buf)
@@ -75,7 +75,7 @@ in, otherwise *vc-diff-unstaged*."
   (prog1
       (diff-git-do-diff-command (or buf "*vc-diff-unstaged*") (not buf)
                                 "--no-color" "--exit-code" "--patience" "--")
-    (setq diff-git-update-fn 'diff-git-diff-unstaged)))
+    (setq diff-git-update-function 'diff-git-diff-unstaged)))
 
 (defun diff-git-do-diff-command (buffer pop &rest flags)
   "Run a git diff command in a `diff-mode' buffer.
@@ -107,9 +107,9 @@ Optional argument FLAGS is the options to pass to git-diff."
     (with-current-buffer buf (diff-git-update-current-buffer))))
 
 (defun diff-git-update-current-buffer ()
-  "Update the current buffer using local `diff-git-update-fn'."
+  "Update the current buffer using local `diff-git-update-function'."
   (interactive)
-  (apply diff-git-update-fn (list (current-buffer))))
+  (funcall diff-git-update-function (current-buffer)))
 
 (defun diff-git-prune-update-buffers-list ()
   "Remove the current buffer from `diff-git-update-buffers-list'."
