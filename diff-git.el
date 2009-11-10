@@ -82,7 +82,7 @@ in, otherwise *vc-diff-staged*."
   (interactive)
   (prog1
       (diff-git-do-diff-command (or buf "*vc-diff-staged*") (not buf)
-                                "--no-color" "--exit-code" "--patience" "--cached" "--")
+                                "--no-color" "--exit-code" "--cached" "--")
     (setq diff-git-update-function 'diff-git-diff-staged)))
 
 ;;;###autoload
@@ -93,7 +93,7 @@ in, otherwise *vc-diff-unstaged*."
   (interactive)
   (prog1
       (diff-git-do-diff-command (or buf "*vc-diff-unstaged*") (not buf)
-                                "--no-color" "--exit-code" "--patience" "--")
+                                "--no-color" "--exit-code" "--")
     (setq diff-git-update-function 'diff-git-diff-unstaged)))
 
 (defun diff-git-do-diff-command (buffer pop &rest flags)
