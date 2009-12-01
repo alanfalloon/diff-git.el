@@ -119,7 +119,13 @@ in, otherwise *vc-diff-unstaged*."
 BUFFER is the buffer that will hold the diff output.
 POP determines if we should pop to the beffer after the command.
 Optional argument FLAGS is the options to pass to git-diff."
-  (let ((files (cadr (vc-deduce-fileset))))
+  (let ((files (cadr (vc-deduce-fileset)))
+        (oldpt (with-current-buffer
+                (get-buffer-create buffer)
+                (save-excursion
+                 (ignore-errors
+                  (diff-beginning-of-hunk 'try-harder))
+                 (point)))))
     (vc-setup-buffer buffer)
     (apply 'vc-git-command buffer 1 files "diff" flags)
     (set-buffer buffer)
@@ -127,6 +133,7 @@ Optional argument FLAGS is the options to pass to git-diff."
         (progn (message "nothing staged") nil)
       (diff-mode)
       (setq buffer-read-only t)
+      (goto-char oldpt)
       (add-hook 'diff-git-status-changed-hook 'diff-git-update-buffers)
       (add-hook 'kill-buffer-hook 'diff-git-prune-update-buffers-list)
       (add-to-list 'diff-git-update-buffers-list (current-buffer))
