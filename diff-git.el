@@ -93,6 +93,13 @@ It is only triggered by diff-git commands that affect the status in some way.")
       (run-hooks 'diff-git-status-changed-hook))))
 
 ;;;###autoload
+(defun diff-git-buffer-stage ()
+  "Stage the all the changes in the current `diff-mode' buffer using 'git apply --cached'."
+  (interactive)
+  (prog1 (magit-run-git-with-input (current-buffer) "apply" "--unidiff-zero" "--cached" "-")
+         (run-hooks 'diff-git-status-changed-hook)))
+
+;;;###autoload
 (defun diff-git-diff-staged (&optional buf)
   "Show the diff of the index and HEAD.
 Optional argument BUF is the buffer to store the diff contents
@@ -166,6 +173,7 @@ Optional argument FLAGS is the options to pass to git-diff."
   (define-key vc-prefix-map "["        'diff-git-diff-unstaged)
   (define-key vc-prefix-map "]"        'diff-git-diff-staged)
   (define-key diff-mode-shared-map "g" 'diff-git-update-current-buffer)
+  (define-key diff-mode-map "\C-c\M-v" 'diff-git-buffer-stage)
   (define-key diff-mode-map "\C-c\C-v" 'diff-git-hunk-stage))
 
 ;;;###autoload (eval-after-load 'diff-mode '(diff-git-default-bindings))
