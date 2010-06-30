@@ -176,8 +176,10 @@ Optional argument FLAGS is the options to pass to git-diff."
   (define-key diff-mode-map "\C-c\M-v" 'diff-git-buffer-stage)
   (define-key diff-mode-map "\C-c\C-v" 'diff-git-hunk-stage))
 
-;;;###autoload (eval-after-load 'diff-mode '(diff-git-default-bindings))
-;;;###autoload (eval-after-load 'vc-mode '(diff-git-default-bindings))
+;;;###autoload
+(eval-after-load 'diff-mode '(diff-git-default-bindings))
+;;;###autoload
+(eval-after-load 'vc-mode '(diff-git-default-bindings))
 
 (provide 'diff-git)
 
