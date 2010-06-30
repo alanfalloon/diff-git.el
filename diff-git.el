@@ -19,6 +19,15 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Installation:
+;;
+;;  1. Get the latest version from
+;;     http://github.com/alanfalloon/diff-git.el
+;;
+;;  2. Put diff-git.el somewhere in your load path
+;;
+;;  3. In your init.el or .emacs, add: (require 'diff-git)
+
 ;;; Commentary:
 
 ;; This package adds commands for working with the Git index from
