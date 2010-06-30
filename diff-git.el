@@ -41,7 +41,7 @@
 ;;
 ;; This extension was written and tested on GNU Emacs 23.0.91.1. To
 ;; use this extension you will require magit 0.7 and vc-git (included
-;; with emacs)
+;; with Emacs)
 
 ;;; History:
 
