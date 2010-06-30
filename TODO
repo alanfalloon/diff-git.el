@@ -1,5 +1,4 @@
 * Make `diff-git-stage-hunk' unstage the hunk if its being run from the staged changes buffer
-* Fix the 'nothing staged' message when trying to see the list of *unstaged* changes
 * The update hooks are not being properly removed when the buffers are closed
 * Add `diff-git-unload-hook' that returns the key bindings and unloads all the hooks
 * Run the hooks when changes are made via magit or the standard git modes

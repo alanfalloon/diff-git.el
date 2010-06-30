@@ -137,7 +137,7 @@ Optional argument FLAGS is the options to pass to git-diff."
     (apply 'vc-git-command buffer 1 files "diff" flags)
     (set-buffer buffer)
     (if (zerop (buffer-size))
-        (progn (message "nothing staged") nil)
+        (progn (message "%s empty diff" buffer) nil)
       (diff-mode)
       (setq buffer-read-only t)
       (goto-char oldpt)
