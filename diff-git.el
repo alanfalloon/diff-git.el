@@ -5,6 +5,7 @@
 ;; Author: Alan Falloon <alan.falloon@gmail.com>
 ;; Keywords: tools convenience patch diff vc git
 ;; Version: 0.1.1
+;; URL: http://github.com/alanfalloon/diff-git.el/raw/master/diff-git.el
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -18,15 +19,6 @@
 ;; 
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-;;; Installation:
-;;
-;;  1. Get the latest version from
-;;     http://github.com/alanfalloon/diff-git.el
-;;
-;;  2. Put diff-git.el somewhere in your load path
-;;
-;;  3. In your init.el or .emacs, add: (require 'diff-git)
 
 ;;; Commentary:
 
