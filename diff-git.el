@@ -95,7 +95,7 @@ It is only triggered by diff-git commands that affect the status in some way.")
 
 ;;;###autoload
 (defun diff-git-buffer-stage ()
-  "Stage the all the changes in the current `diff-mode' buffer using 'git apply --cached'."
+  "Stage the all the hunks in the current `diff-mode' buffer using 'git apply --cached'."
   (interactive)
   (prog1 (magit-run-git-with-input (current-buffer) "apply" "--unidiff-zero" "--cached" "-")
          (run-hooks 'diff-git-status-changed-hook)))
